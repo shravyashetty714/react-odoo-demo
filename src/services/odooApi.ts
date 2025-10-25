@@ -5,10 +5,7 @@ interface CreateContactParams {
   phone: string;
 }
 
-interface OdooAuthResult {
-  uid: number;
-  name: string;
-}
+
 
 interface OdooResponse {
   jsonrpc: string;
@@ -29,7 +26,6 @@ class OdooService {
   private database: string;
   private username: string;
   private password: string;
-  private sessionId: number | null = null;
 
   constructor() {
     // In development, use empty string (Vite proxy will handle it)
@@ -70,7 +66,6 @@ class OdooService {
       console.log('Auth response:', response.data);
 
       if (response.data.result?.uid) {
-        this.sessionId = response.data.result.uid;
         console.log('✓ Authenticated! User:', response.data.result.name);
         return true;
       } else {
